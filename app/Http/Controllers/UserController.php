@@ -12,6 +12,8 @@ use Acme\services\UserCreator;
 
 use Acme\services\MakeLogin;
 
+use Auth;
+
 
 class UserController extends Controller
 {
@@ -67,8 +69,12 @@ class UserController extends Controller
                 $data=$this->request->all();
 
                 $this->makeLogin->make($data);
+                if(Auth::attempt([
+                    'email' => $this->request->input('email'), 
+                    'password' => $this->request->input('password')
+                ])) return requirect()->route('home');
 
-                return redirect()->route('home');
+            return redirect()->back()->with('login-error','UserName or Password wrong');
 
         } catch (LoginValidatorException $e) {
             

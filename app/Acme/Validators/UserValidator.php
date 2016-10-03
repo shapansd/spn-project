@@ -11,6 +11,6 @@ class UserValidator extends Validator
 
 		'name'  =>'required|min:4',
         'email' =>'required|email|unique:users',
-        'password'  =>'required|min:6',
+        'password'  =>'required|min:6|confirmed',
 	];
 }

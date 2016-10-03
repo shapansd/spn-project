@@ -3,7 +3,9 @@
 	@section('sign-in')
 
 		<form role="form" action="{{ route('login') }}" method="post">
-
+			@if(Session::has('login-error'))
+				<div class="alert-info">{{ Session::get('login-error') }}</div>
+			@endif
 		  <div class="form-group">
 		    <label for="email">Email address:</label>
 		    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
