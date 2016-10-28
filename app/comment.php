@@ -4,22 +4,21 @@ namespace App;
 
 use App\User;
 
-use App\comment;
+use App\Reply;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class comment extends Model
 {
-    protected $fillable=['title','body','user_id','slug'];
-
+    protected $fillable=['body','user_id','article_id'];
 
     public function user()
     {
     	return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function replies()
     {
-    	return $this->hasMany(comment::class);
+    	return $this->hasMany(Reply::class);
     }
 }

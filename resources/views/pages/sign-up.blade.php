@@ -1,12 +1,22 @@
 @extends('layout.master')
 	@section('sign-up')
-		<form role="form" action="{{ route('signUp') }}" method="post">
+
+		<form role="form" action="{{ route('signUp') }}" method="post" enctype="multipart/form-data">
+
 		  <div class="form-group">
 		    <label for="email">Name:</label>
 		    <input type="text" class="form-control" name="name" value="{{ old('name') }}" >
 
 		    	<div class="">{{ $errors->register->first('name') }}</div>
 		  </div>
+			
+
+		<div class="form-group">
+		    <label for="photo">Upload a Photo:</label>
+		    <input type="file" class="form-control" name="photo" id="photo" >
+		    <div class="error">{{ $errors->register->first('photo') }}</div>
+		</div>
+
 
 		  <div class="form-group">
 		    <label for="email">Email address:</label>

@@ -15,13 +15,5 @@ class Role extends Model
         return $this->belongsToMany('App\User');
     }
 
-    public function hasRole($name)
-    {
-    	foreach ($this->role as $role) {
-    		
-    		if($role == $name) return true;
-    	}
-
-    	return false;
-    }
+   
 }

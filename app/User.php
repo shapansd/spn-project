@@ -6,22 +6,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Role;
 
+use App\Article;
+
+use App\comment;
+
 class User extends Authenticatable
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+ 
+
+ 
     protected $fillable = [
-        'name', 'email', 'password','confirmation_code','confirmed'
+        'name', 'email', 'password','confirmation_code','confirmed','image_url'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -30,4 +29,32 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
+
+
+     public function hasRole($name)
+    {
+        
+        foreach($this->roles as $role) {
+            
+            if($role->role == $name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public function Articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(comment::class);
+    }
+
+
 }

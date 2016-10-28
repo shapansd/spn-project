@@ -12,7 +12,9 @@ class HomeController extends Controller
     public function home()
     {	
 
-    	return view('pages.content');
+    	$articles=Article::paginate(4);
+
+    	return view('pages.content',compact('articles'));
     }
 
     public function getSignUp()

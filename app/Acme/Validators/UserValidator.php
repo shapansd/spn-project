@@ -9,8 +9,9 @@ class UserValidator extends Validator
 
 	protected static $rules=[
 
-		'name'  =>'required|min:4',
-        'email' =>'required|email|unique:users',
-        'password'  =>'required|min:6|confirmed',
+		'name'  	=>'required|min:4',
+        'email'     =>'required|email|unique:users',
+        'photo'		=>'required',
+        'password'  =>'required|min:6',
 	];
 }

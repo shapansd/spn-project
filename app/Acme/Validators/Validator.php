@@ -8,6 +8,7 @@ use Illuminate\Validation\Factory;
 abstract class Validator
 {
 	protected $errors;
+	
 	protected $validator;
 
 	function __construct(Factory $validator)
@@ -27,7 +28,7 @@ abstract class Validator
 			return false;
 		}
 
-		return true;
+			return true;
 	}
 
 	public function getErrors()
