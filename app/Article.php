@@ -6,6 +6,8 @@ use App\User;
 
 use App\comment;
 
+use App\Vote;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -21,5 +23,10 @@ class Article extends Model
     public function comments()
     {
     	return $this->hasMany(comment::class);
+    }
+
+    public function votes()
+    {
+    	return $this->hasMany(Vote::class);
     }
 }

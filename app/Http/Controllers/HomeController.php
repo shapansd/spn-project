@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function home()
     {	
 
-    	$articles=Article::paginate(4);
+    	$articles=Article::latest()->paginate(4);
 
     	return view('pages.content',compact('articles'));
     }

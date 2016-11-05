@@ -8,7 +8,7 @@ Route::get('/',[
 
 /**
  * authentication section route
- * ===============================================
+ * ============================================================================================
  */
 Route::get('register',[
 	'as'	=>'register',
@@ -52,7 +52,10 @@ Route::post('user/edit/update',[
 
 ])->middleware('auth');
 
-//reseting password 
+/*
+*reseting password 
+********************************************************************************************************
+*/
 
 Route::get('password/email', '\App\Http\Controllers\Auth\PasswordController@getEmail');
 
@@ -63,19 +66,28 @@ Route::get('password/reset/{token}', '\App\Http\Controllers\Auth\PasswordControl
 Route::post('password/reset', '\App\Http\Controllers\Auth\PasswordController@postReset');
 
 //user confirmation route
+//******************************************************************************************************
 
 Route::get('user/activate/{confirmation_code}',
 	'UserController@confirmUser');
 
 //user dashboard route
+//******************************************************************************************************
 
 Route::get('user/dashboard',[
 	'as'	=>'dashboard',
 	'uses'	=>'UserController@userDashboard'
 ])->middleware('auth');
 
+
+Route::get('admin',[
+	'as'	=>'admin',
+	'uses'	=>'UserController@admin'
+])->middleware('auth');
+
 /**
  * article route
+ ******************************************************************************************************
  */
  
  Route::get('post/article',[
@@ -95,4 +107,14 @@ Route::get('user/dashboard',[
   Route::get('article/{slug}',[
   	'as'=>'show',
   	'uses'	=>'ArticleController@show'
+  ]);
+
+    Route::get('article/edit/{slug}',[
+  	'as'=>'edit',
+  	'uses'	=>'ArticleController@edit'
+  ]);
+
+Route::get('article/delete/{slug}',[
+  	'as'=>'delete',
+  	'uses'	=>'ArticleController@delete'
   ]);

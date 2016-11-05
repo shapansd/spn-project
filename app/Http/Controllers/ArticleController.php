@@ -49,6 +49,21 @@ class ArticleController extends Controller
         
       }
 
-      var_dump($article->body);
+        $article->increment('view_count');
+      return view('pages.article-body',compact('article'));
+    }
+
+    public function edit($slug)
+    {
+      return 'updated';
+      Article::where('slug',$slug)->update();
+      return redirect()->back();
+    }
+
+
+    public function delete($slug)
+    {
+      Article::where('slug',$slug)->delete();
+      return redirect()->back();
     }
 }

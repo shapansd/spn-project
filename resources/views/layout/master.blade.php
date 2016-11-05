@@ -26,6 +26,7 @@
   @yield('user-dashboard')
   @yield('reset')
   @yield('post-article')
+  @yield('article-body')
 
 </div>
 

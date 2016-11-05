@@ -10,9 +10,6 @@
 			
 			<h1>{{ Auth::user()->name }}</h1><span>
 
-			@if(Auth::user()->hasRole('admin'))
-				<p>{{ Auth::user()->role->name }}</p>
-			@endif
 
 			<div class="">
 				<img src="{{ asset('image/profile_image/'.Auth::user()->image_url )  }}" alt="" style="width:304px;height:228px;">
@@ -32,13 +29,18 @@
 
 					<div class="well">
 						<a href="">{{ $article->title }}</a>
+						<strong><a href="{{ route('delete',['slug' =>$article->slug]) }}">delete</a></strong>
+						<strong><a href="{{ route('edit',['slug' =>$article->slug]) }}">edit</a></strong>
 					</div>
 
 				@endforeach
 
 			@else
-				<div class="well">{{ Auth::user()->articles()->first()->title }}</div>
-
+				<div class="well">
+						<a href="">{{ Auth::user()->articles()->first()->title }}</a>
+						<strong><a href="{{ route('delete',['slug' =>Auth::user()->articles()->first()->slug]) }}">delete</a></strong>
+						<strong><a href="{{ route('edit',['slug' =>Auth::user()->articles()->first()->slug]) }}">edit</a></strong>
+				</div>
 			@endif
 
 		@endif

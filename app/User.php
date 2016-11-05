@@ -10,6 +10,8 @@ use App\Article;
 
 use App\comment;
 
+use App\Vote;
+
 class User extends Authenticatable
 {
  
@@ -31,12 +33,12 @@ class User extends Authenticatable
     }
 
 
-     public function hasRole($name)
+    public  function hasRole($name)
     {
         
         foreach($this->roles as $role) {
             
-            if($role->role == $name)
+            if($role->name == $name)
             {
                 return true;
             }
@@ -56,5 +58,37 @@ class User extends Authenticatable
         return $this->hasMany(comment::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function hasLiked()
+    {
+
+        foreach ($this->votes as $vote) {
+            if ($this->id == $vote->user_id) {
+                
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public function hasLikedArticle($article_id)
+    {
+        if ($this->hasLiked()) {
+            foreach ($this->votes as $vote) {
+
+                if ($vote->article_id == $article_id) {
+                    
+                    return true;
+                }
+
+                return false;
+            }
+        }
+    }
 
 }

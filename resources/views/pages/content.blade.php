@@ -13,7 +13,7 @@
 
 			<div class="well ">
 				<strong><a href="{{ route('show',['slug' =>$article->slug ]) }}">{{ $article->title }} </a> </strong>
-				<small><a href="">by {{ $article->user()->first()->name }}</a></small>
+				
 			</div>
 
 		@endforeach

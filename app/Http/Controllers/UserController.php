@@ -169,4 +169,14 @@ class UserController extends Controller
                             ->with('Info','Your data has been updated');
     var_dump('updated');
      }
+
+     public function admin()
+     {
+         if (Auth::user()->hasRole('admin')) {
+             
+             return 'you are the admin page';
+         }
+
+         return redirect('/');
+     }
 }

@@ -18,8 +18,6 @@
 
 		</div>
 
-			<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-
 			<input type="hidden" name="_token" value="{{ Session::token() }}">
 			<button type="submit" class="btn btn-success">Submit</button>
 		</form>

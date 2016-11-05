@@ -15,6 +15,9 @@
     
       @if(Auth::check())
         <li><a href="{{ route('article') }}">Post Article</a></li>
+
+        <li><img src=""></li>
+        <li><img src="{{ asset('image/profile_image/'.Auth::user()->image_url ) }}" width="80px" height="60px"></li>
         <li><a href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a></li>
         <li><a href="{{ route('logout') }}"> logout</a></li>
       @else
