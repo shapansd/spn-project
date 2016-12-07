@@ -1,14 +1,16 @@
+
+
 @extends('layout.master')
 	@section('article-body')
 		<h1>Article</h1><hr/>
 		<ul>
-			@if(Auth::check() && Auth::user()->hasLikedArticle($article->id))
+			@if(Auth::check() && Auth::user()->liked($article->id))
 				<p>yeah u liked it</p>
 			@else
 				<p>u havent liked</p>
 			@endif
-			<li>like :: {{ $article->votes->count() }}</li>
-			<li>dislike :: 1 </li>
+			<li>like :: {{ $plus }}</li>
+			<li>dislike ::{{ $minus }}</li>
 
 		</ul>
 

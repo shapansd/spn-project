@@ -12,6 +12,8 @@ use App\comment;
 
 use App\Vote;
 
+use App\Rate;
+
 class User extends Authenticatable
 {
  
@@ -63,32 +65,70 @@ class User extends Authenticatable
         return $this->hasMany(Vote::class);
     }
 
-    public function hasLiked()
-    {
 
-        foreach ($this->votes as $vote) {
-            if ($this->id == $vote->user_id) {
-                
-                return true;
-            }
+
+    function ifVoted($article)
+    {
+        if ($this->id === $article->votes->first()->user_id) {
+            
+            return true;
+        }
 
             return false;
-        }
     }
 
-    public function hasLikedArticle($article_id)
+    public function vote($article)
     {
-        if ($this->hasLiked()) {
-            foreach ($this->votes as $vote) {
-
-                if ($vote->article_id == $article_id) {
-                    
-                    return true;
-                }
-
-                return false;
+        if (false) {
+            
+            if ($this->votes->where('article_id',$article->id)->first()->down == 1) {
+                
+                return 'you are liked it';
             }
+
+            return "you are disliked";
         }
+
+        return "yhavent voted yet";
+    }
+
+//here is a code snippet of upvote
+
+    public function upvote($article)
+    {
+        if ($this->ifVoted($article)) {
+            
+            if ($this->votes->where('article_id',$article->id)->first()->vote == 1) {
+                
+                return 'you already liked it';
+            }
+                //first delete down value
+                // update up value
+                return "you disliked it";
+        }
+
+        //update upvote
+        return "not yet voted";
+    }
+
+
+//here is a code snippet of downvote
+ 
+    public function downvote($article)
+    {
+        if ($this->ifVoted($article)) {
+            
+            if ($this->votes->where('article_id',$article->id)->first()->down == 1) {
+                
+                return 'you already disliked it';
+            }
+                //first delete up value
+                // update down value
+                return "you liked it";
+        }
+
+        //update upvote
+        return "not yet voted";
     }
 
 }

@@ -8,6 +8,8 @@ use Auth;
 
 use App\Article;
 
+use App\Rate;
+
 class ArticleController extends Controller
 {
    	
@@ -50,7 +52,9 @@ class ArticleController extends Controller
       }
 
         $article->increment('view_count');
-      return view('pages.article-body',compact('article'));
+        $plus=Rate::plus($article->id);
+        $minus=Rate::minus($article->id);
+      return view('pages.article-body',compact('article','plus','minus'));
     }
 
     public function edit($slug)
