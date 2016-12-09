@@ -71,15 +71,14 @@ class User extends Authenticatable
     {
         if ($article->votes->first() != null) {
             
-        
-
-            if ($this->id === $article->votes->first()->user_id) {
-                
-                return true;
+            $votes=$article->votes;
+            
+            if ($votes->contains('user_id',$this->id)) {
+                 
+                 return true;
             }
 
             return false;
-
         }
 
         return false;
