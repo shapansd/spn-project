@@ -4,13 +4,24 @@
 	@section('article-body')
 		<h1>Article</h1><hr/>
 		<ul>
-			@if(Auth::check() && Auth::user()->liked($article->id))
-				<p>yeah u liked it</p>
-			@else
-				<p>u havent liked</p>
-			@endif
-			<li>like :: {{ $plus }}</li>
-			<li>dislike ::{{ $minus }}</li>
+			<li>like :: {{ $article->votes->where('vote',1)->count() }}</li>
+			<li>dislike ::{{ $article->votes->where('down',1)->count() }}</li>
+			<li>
+				<form action="{{ route('up',$article->slug) }}" method="POST">
+
+					<button class="btn btn-success">up</button>
+					<input type="hidden" name="_token" value="{{ Session::token() }}">
+				</form>
+
+				<form action="{{ route('down',$article->slug) }}" method="POST">
+
+					<button class="btn btn-danger">down</button>
+
+					<input type="hidden" name="_token" value="{{ Session::token() }}" >
+
+				</form>
+				
+			</li>
 
 		</ul>
 

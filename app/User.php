@@ -69,12 +69,20 @@ class User extends Authenticatable
 
     function ifVoted($article)
     {
-        if ($this->id === $article->votes->first()->user_id) {
+        if ($article->votes->first() != null) {
             
-            return true;
-        }
+        
+
+            if ($this->id === $article->votes->first()->user_id) {
+                
+                return true;
+            }
 
             return false;
+
+        }
+
+        return false;
     }
 
     public function vote($article)
@@ -104,10 +112,20 @@ class User extends Authenticatable
             }
                 //first delete down value
                 // update up value
+                $article=$this->votes->where('article_id',$article->id)->first();
+                $article->vote=1;
+                $article->down=0;
+                $article->save();
                 return "you disliked it";
         }
 
         //update upvote
+        Vote::create([
+            'user_id' =>$this->id,
+            'article_id'    => $article->id,
+            'vote'          =>1,
+            'down'          =>0
+        ]);
         return "not yet voted";
     }
 
@@ -124,10 +142,22 @@ class User extends Authenticatable
             }
                 //first delete up value
                 // update down value
-                return "you liked it";
+
+                $article=$this->votes->where('article_id',$article->id)->first();
+                $article->vote=0;
+                $article->down=1;
+                $article->save();
+
+                return "you  liked it";
         }
 
         //update upvote
+        Vote::create([
+            'user_id' =>$this->id,
+            'article_id'    => $article->id,
+            'vote'          =>0,
+            'down'          =>1
+        ]);
         return "not yet voted";
     }
 

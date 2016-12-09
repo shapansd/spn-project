@@ -118,3 +118,16 @@ Route::get('article/delete/{slug}',[
   	'as'=>'delete',
   	'uses'	=>'ArticleController@delete'
   ]);
+
+//*******************************************************************************************
+//voting system
+
+Route::post('article/upvote/{slug}',[
+	'as' =>'up',
+	'uses' =>'Vote@upvote'
+])->middleware('auth');
+
+Route::post('downvote/{slug}',[
+	'as' =>'down',
+	'uses' =>'Vote@downvote'
+])->middleware('auth');
